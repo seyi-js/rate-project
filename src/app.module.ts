@@ -19,6 +19,7 @@ import dbConfig from './config/db.config';
 import { AllExceptionsFilter } from './interceptors/exception.interceptor';
 import { ThrottlerBehindProxyGuard } from './middleware/throttler-proxy-guard';
 import { SentryModule } from './modules/sentry/sentry.module';
+import { EventModule } from './modules/events/events.module';
 
 @Module({
   imports: [
@@ -59,6 +60,8 @@ import { SentryModule } from './modules/sentry/sentry.module';
       attachStacktrace: true,
       serverName: process.env.APP_NAME,
     }),
+
+    EventModule
   ],
   controllers: [AppController],
   providers: [
