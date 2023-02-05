@@ -20,6 +20,8 @@ import { AllExceptionsFilter } from './interceptors/exception.interceptor';
 import { ThrottlerBehindProxyGuard } from './middleware/throttler-proxy-guard';
 import { SentryModule } from './modules/sentry/sentry.module';
 import { EventModule } from './modules/events/events.module';
+import { BullModule } from '@nestjs/bull';
+import { QueueModule } from './modules/queues/queues.module';
 
 @Module({
   imports: [
@@ -59,9 +61,22 @@ import { EventModule } from './modules/events/events.module';
       debug: true,
       attachStacktrace: true,
       serverName: process.env.APP_NAME,
+      integrations: [new Sentry.Integrations.Http({ tracing: true })],
     }),
 
-    EventModule
+    BullModule.forRoot({
+      redis: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+        password: process.env.REDIS_PASSWORD,
+      },
+      settings: {
+        stalledInterval: 10000,
+      },
+    }),
+
+    EventModule,
+    QueueModule
   ],
   controllers: [AppController],
   providers: [
