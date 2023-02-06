@@ -9,3 +9,14 @@ export interface IAppConfig {
 export type Environment = 'development' | 'production' | 'test' | 'staging';
 
 export type IDataBaseConfig = MongooseModuleOptions;
+
+export type IEmailConfig = {
+  service: string;
+  auth: {
+    user: string;
+    pass: string;
+  };
+  host: string;
+  port: number;
+  from: string;
+}

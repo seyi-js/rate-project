@@ -22,6 +22,7 @@ import { SentryModule } from './modules/sentry/sentry.module';
 import { EventModule } from './modules/events/events.module';
 import { BullModule } from '@nestjs/bull';
 import { QueueModule } from './modules/queues/queues.module';
+import { NotificationModule } from './modules/notification/module';
 
 @Module({
   imports: [
@@ -76,7 +77,8 @@ import { QueueModule } from './modules/queues/queues.module';
     }),
 
     EventModule,
-    QueueModule
+    QueueModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [
