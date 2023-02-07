@@ -23,12 +23,15 @@ import { EventModule } from './modules/events/events.module';
 import { BullModule } from '@nestjs/bull';
 import { QueueModule } from './modules/queues/queues.module';
 import { NotificationModule } from './modules/notification/module';
+import emailConfig from './config/email.config';
+import awsConfig from './config/aws.config';
+import { UploadModule } from './modules/upload/module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, dbConfig],
+      load: [appConfig, dbConfig,emailConfig,awsConfig],
     }),
 
     MongooseModule.forRootAsync({
@@ -78,7 +81,9 @@ import { NotificationModule } from './modules/notification/module';
 
     EventModule,
     QueueModule,
-    NotificationModule
+    NotificationModule,
+    UploadModule
+    
   ],
   controllers: [AppController],
   providers: [
