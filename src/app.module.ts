@@ -26,6 +26,7 @@ import { NotificationModule } from './modules/notification/module';
 import emailConfig from './config/email.config';
 import awsConfig from './config/aws.config';
 import { UploadModule } from './modules/upload/module';
+import { UtilityModule } from './modules/utility/module';
 
 @Module({
   imports: [
@@ -82,7 +83,8 @@ import { UploadModule } from './modules/upload/module';
     EventModule,
     QueueModule,
     NotificationModule,
-    UploadModule
+    UploadModule,
+    UtilityModule
     
   ],
   controllers: [AppController],
