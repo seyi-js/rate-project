@@ -27,6 +27,7 @@ import emailConfig from './config/email.config';
 import awsConfig from './config/aws.config';
 import { UploadModule } from './modules/upload/module';
 import { UtilityModule } from './modules/utility/module';
+import { CacheModule as CustomCacheModule } from './modules/cache/module';
 
 @Module({
   imports: [
@@ -84,7 +85,8 @@ import { UtilityModule } from './modules/utility/module';
     QueueModule,
     NotificationModule,
     UploadModule,
-    UtilityModule
+    UtilityModule,
+    CustomCacheModule,
     
   ],
   controllers: [AppController],
