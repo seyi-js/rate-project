@@ -20,3 +20,9 @@ export type IEmailConfig = {
   port: number;
   from: string;
 }
+
+export type IAwsConfig = {
+  accessKeyId: string;
+  secretAccessKey: string;
+  region: string;
+}
