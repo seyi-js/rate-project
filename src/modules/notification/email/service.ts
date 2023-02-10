@@ -15,11 +15,10 @@ export class EmailService {
     {
       ...this.emailConfig,
     },
-    { from: `"Fave" <${this.emailConfig.from}>` },
+    { from: `"" <${this.emailConfig.from}>` },
   );
 
-
-  async sendEmail(payload:ISendEmail){
+  async sendEmail(payload: ISendEmail) {
     const options = {
       to: payload.to,
       subject: payload.subject,
@@ -49,6 +48,4 @@ export class EmailService {
 
     return response;
   }
-
-
 }

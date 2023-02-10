@@ -29,6 +29,7 @@ import { UploadModule } from './modules/upload/module';
 import { UtilityModule } from './modules/utility/module';
 import { CacheModule as CustomCacheModule } from './modules/cache/module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { RateModule } from './modules/rate/module';
 
 @Module({
   imports: [
@@ -42,7 +43,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => ({
         ...(await dbConfig()).db,
-        appName: config.get<IAppConfig>('app').appName,
+        // appName: config.get<IAppConfig>('app').appName,
       }),
     }),
 
@@ -61,26 +62,26 @@ import { ScheduleModule } from '@nestjs/schedule';
       verboseMemoryLeak: true,
     }),
 
-    SentryModule.forRoot({
-      dsn: process.env.SENTRY_DNS,
-      environment: process.env.APP_ENV,
-      tracesSampleRate: 1.0,
-      debug: true,
-      attachStacktrace: true,
-      serverName: process.env.APP_NAME,
-      integrations: [new Sentry.Integrations.Http({ tracing: true })],
-    }),
+    // SentryModule.forRoot({
+    //   dsn: process.env.SENTRY_DNS,
+    //   environment: process.env.APP_ENV,
+    //   tracesSampleRate: 1.0,
+    //   debug: true,
+    //   attachStacktrace: true,
+    //   serverName: process.env.APP_NAME,
+    //   integrations: [new Sentry.Integrations.Http({ tracing: true })],
+    // }),
 
-    BullModule.forRoot({
-      redis: {
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT),
-        password: process.env.REDIS_PASSWORD,
-      },
-      settings: {
-        stalledInterval: 10000,
-      },
-    }),
+    // BullModule.forRoot({
+    //   redis: {
+    //     host: process.env.REDIS_HOST,
+    //     port: parseInt(process.env.REDIS_PORT),
+    //     password: process.env.REDIS_PASSWORD,
+    //   },
+    //   settings: {
+    //     stalledInterval: 10000,
+    //   },
+    // }),
 
     ScheduleModule.forRoot(),
 
@@ -90,6 +91,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     UploadModule,
     UtilityModule,
     CustomCacheModule,
+
+    RateModule,
   ],
   controllers: [AppController],
   providers: [
