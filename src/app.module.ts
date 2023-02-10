@@ -28,12 +28,13 @@ import awsConfig from './config/aws.config';
 import { UploadModule } from './modules/upload/module';
 import { UtilityModule } from './modules/utility/module';
 import { CacheModule as CustomCacheModule } from './modules/cache/module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, dbConfig,emailConfig,awsConfig],
+      load: [appConfig, dbConfig, emailConfig, awsConfig],
     }),
 
     MongooseModule.forRootAsync({
@@ -81,13 +82,14 @@ import { CacheModule as CustomCacheModule } from './modules/cache/module';
       },
     }),
 
+    ScheduleModule.forRoot(),
+
     EventModule,
     QueueModule,
     NotificationModule,
     UploadModule,
     UtilityModule,
     CustomCacheModule,
-    
   ],
   controllers: [AppController],
   providers: [
